@@ -1,14 +1,18 @@
-# Welcome to your Lovable project
+# Pixel Perfect Showcase
+
+Create a Landing page as in the attached landing page image, using the screenshots of the apps attached hereby as exactly as it is in the landing page design, no deviation, say style, layout, design, skeuomorphic and claymorphic styles
 
 This project was built with [Lovable](https://lovable.dev).
 
+**Live app**: https://bizzact.lovable.app
+
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/1a341296-c375-48fe-a5b9-09a989b22de2).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +24,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
