@@ -695,9 +695,6 @@ function Landing() {
               Request a free demo and see how BizzAct can simplify your business operations.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href="#demo" className="btn-clay">
-                Request a Demo <ArrowRight className="size-4" />
-              </a>
               <a
                 href="#works"
                 className="inline-flex items-center gap-2 rounded-xl border border-ink-foreground/25 px-4 py-2.5 text-sm font-semibold text-ink-foreground transition-colors hover:bg-ink-foreground/10"
@@ -705,15 +702,17 @@ function Landing() {
                 <PlayCircle className="size-4" /> Watch Full Demo
               </a>
             </div>
+            <div className="mt-6 rounded-2xl border border-ink-foreground/15 bg-ink-foreground/5 p-2">
+              <img
+                src={profileShot.url}
+                alt="BizzAct business profile and invoicing defaults configuration"
+                loading="lazy"
+                className="block w-full rounded-xl"
+              />
+            </div>
           </div>
-          <div className="rounded-2xl border border-ink-foreground/15 bg-ink-foreground/5 p-2">
-            <img
-              src={profileShot.url}
-              alt="BizzAct business profile and invoicing defaults configuration"
-              loading="lazy"
-              className="block w-full rounded-xl"
-            />
-          </div>
+          <ContactForm />
+
         </div>
       </section>
 
