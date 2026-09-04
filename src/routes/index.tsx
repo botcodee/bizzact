@@ -426,9 +426,14 @@ function Landing() {
               </li>
             ))}
           </ul>
-          <a href="#demo" className="btn-clay">
-            Request Demo
-          </a>
+          <div className="flex items-center gap-2">
+            <Link to="/auth" className="btn-ghost-clay !text-xs">
+              Admin
+            </Link>
+            <a href="#demo" className="btn-clay">
+              Request Demo
+            </a>
+          </div>
         </nav>
       </header>
 
