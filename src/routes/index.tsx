@@ -31,6 +31,11 @@ import {
   ChevronRight,
 } from "lucide-react";
 
+import { Link } from "@tanstack/react-router";
+
+import { supabase } from "@/integrations/supabase/client";
+import { contactSchema } from "@/lib/contact.functions";
+import logoAsset from "@/assets/bizzactlogo.jpeg.asset.json";
 import dashboardShot from "@/assets/Screenshot_2026-08-29_060330.png.asset.json";
 import salesShot from "@/assets/Screenshot_2026-08-29_060400.png.asset.json";
 import invoiceShot from "@/assets/Screenshot_2026-08-29_060423.png.asset.json";
@@ -281,12 +286,9 @@ const footerCols = [
 
 function Logo() {
   return (
-    <a href="#home" className="flex items-center gap-2">
-      <span
-        className="grid size-9 place-items-center rounded-xl border border-border bg-card text-[10px] font-extrabold leading-none clay"
-        style={{ color: "var(--brand-green)" }}
-      >
-        BA
+    <a href="#home" className="flex items-center gap-2.5">
+      <span className="grid size-10 place-items-center overflow-hidden rounded-xl border border-border bg-card clay">
+        <img src={logoAsset.url} alt="BizzAct logo" className="size-full object-cover" />
       </span>
       <span className="text-xl font-extrabold tracking-tight">
         <span style={{ color: "var(--brand-green)" }}>Bizz</span>
@@ -295,6 +297,96 @@ function Logo() {
     </a>
   );
 }
+
+function ContactForm() {
+  const [form, setForm] = useState({ username: "", email: "", phone: "", comments: "" });
+  const [status, setStatus] = useState<"idle" | "saving" | "done">("idle");
+  const [error, setError] = useState<string | null>(null);
+
+  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm((f) => ({ ...f, [k]: e.target.value }));
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+
+    const parsed = contactSchema.safeParse(form);
+    if (!parsed.success) {
+      setError(parsed.error.issues[0]?.message ?? "Please check your details");
+      return;
+    }
+
+    setStatus("saving");
+    const { error: dbError } = await supabase.from("contact_requests").insert({
+      username: parsed.data.username,
+      email: parsed.data.email,
+      phone: parsed.data.phone,
+      comments: parsed.data.comments || null,
+    });
+    if (dbError) {
+      setStatus("idle");
+      setError("Could not send your request. Please try again.");
+      return;
+    }
+    setStatus("done");
+    setForm({ username: "", email: "", phone: "", comments: "" });
+  }
+
+  const field =
+    "w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm outline-none focus:border-primary";
+
+  return (
+    <form onSubmit={onSubmit} className="rounded-2xl border border-border bg-card p-6 clay clay-lg">
+      <h3 className="text-base font-extrabold">Request a Demo</h3>
+      <p className="mt-1.5 text-xs text-muted-foreground">
+        Share your details and our team will reach out shortly.
+      </p>
+      <div className="mt-5 space-y-3">
+        <input
+          className={field}
+          placeholder="Your name"
+          value={form.username}
+          onChange={set("username")}
+          maxLength={100}
+        />
+        <input
+          className={field}
+          type="email"
+          placeholder="Email address"
+          value={form.email}
+          onChange={set("email")}
+          maxLength={255}
+        />
+        <input
+          className={field}
+          type="tel"
+          placeholder="Phone number"
+          value={form.phone}
+          onChange={set("phone")}
+          maxLength={20}
+        />
+        <textarea
+          className={`${field} min-h-24 resize-y`}
+          placeholder="Comments (optional)"
+          value={form.comments}
+          onChange={set("comments")}
+          maxLength={1000}
+        />
+        {error && <p className="text-xs font-medium text-destructive">{error}</p>}
+        {status === "done" && (
+          <p className="text-xs font-medium" style={{ color: "var(--brand-green)" }}>
+            Thanks! We&apos;ve received your request.
+          </p>
+        )}
+        <button type="submit" disabled={status === "saving"} className="btn-clay w-full disabled:opacity-60">
+          {status === "saving" ? "Sending…" : "Submit Request"}
+          <ArrowRight className="size-4" />
+        </button>
+      </div>
+    </form>
+  );
+}
+
 
 function ShotFrame({ src, alt }: { src: string; alt: string }) {
   return (
@@ -334,9 +426,14 @@ function Landing() {
               </li>
             ))}
           </ul>
-          <a href="#demo" className="btn-clay">
-            Request Demo
-          </a>
+          <div className="flex items-center gap-2">
+            <Link to="/auth" className="btn-ghost-clay !text-xs">
+              Admin
+            </Link>
+            <a href="#demo" className="btn-clay">
+              Request Demo
+            </a>
+          </div>
         </nav>
       </header>
 
@@ -603,9 +700,6 @@ function Landing() {
               Request a free demo and see how BizzAct can simplify your business operations.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href="#demo" className="btn-clay">
-                Request a Demo <ArrowRight className="size-4" />
-              </a>
               <a
                 href="#works"
                 className="inline-flex items-center gap-2 rounded-xl border border-ink-foreground/25 px-4 py-2.5 text-sm font-semibold text-ink-foreground transition-colors hover:bg-ink-foreground/10"
@@ -613,15 +707,17 @@ function Landing() {
                 <PlayCircle className="size-4" /> Watch Full Demo
               </a>
             </div>
+            <div className="mt-6 rounded-2xl border border-ink-foreground/15 bg-ink-foreground/5 p-2">
+              <img
+                src={profileShot.url}
+                alt="BizzAct business profile and invoicing defaults configuration"
+                loading="lazy"
+                className="block w-full rounded-xl"
+              />
+            </div>
           </div>
-          <div className="rounded-2xl border border-ink-foreground/15 bg-ink-foreground/5 p-2">
-            <img
-              src={profileShot.url}
-              alt="BizzAct business profile and invoicing defaults configuration"
-              loading="lazy"
-              className="block w-full rounded-xl"
-            />
-          </div>
+          <ContactForm />
+
         </div>
       </section>
 
