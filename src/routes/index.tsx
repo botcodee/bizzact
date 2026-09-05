@@ -35,14 +35,14 @@ import { Link } from "@tanstack/react-router";
 
 import { supabase } from "@/integrations/supabase/client";
 import { contactSchema } from "@/lib/contact.functions";
-import logoAsset from "@/assets/bizzactlogo.jpeg.asset.json";
-import dashboardShot from "@/assets/Screenshot_2026-08-29_060330.png.asset.json";
-import salesShot from "@/assets/Screenshot_2026-08-29_060400.png.asset.json";
-import invoiceShot from "@/assets/Screenshot_2026-08-29_060423.png.asset.json";
-import catalogShot from "@/assets/Screenshot_2026-08-29_060443.png.asset.json";
-import expenseShot from "@/assets/Screenshot_2026-08-29_060456.png.asset.json";
-import profileShot from "@/assets/Screenshot_2026-08-29_060517.png.asset.json";
-import backupShot from "@/assets/Screenshot_2026-08-29_060537.png.asset.json";
+const logoUrl = "/bizzactlogo.jpeg";
+const dashboardShot = "/shot-060330.png";
+const salesShot = "/shot-060400.png";
+const invoiceShot = "/shot-060423.png";
+const catalogShot = "/shot-060443.png";
+const expenseShot = "/shot-060456.png";
+const profileShot = "/shot-060517.png";
+const backupShot = "/shot-060537.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -133,7 +133,7 @@ const tabs = [
       "Expense Distribution Breakdown",
     ],
     cta: "Explore Dashboard",
-    image: dashboardShot.url,
+    image: dashboardShot,
     alt: "BizzAct executive financial dashboard with revenue, GST and expense breakdown",
   },
   {
@@ -152,7 +152,7 @@ const tabs = [
       "Export Sales & Invoices",
     ],
     cta: "Explore Sales",
-    image: salesShot.url,
+    image: salesShot,
     alt: "BizzAct sales register with automatic GST tax split",
   },
   {
@@ -171,7 +171,7 @@ const tabs = [
       "Catalog Export",
     ],
     cta: "Explore Procurement",
-    image: catalogShot.url,
+    image: catalogShot,
     alt: "BizzAct product and service catalog with stock levels and reorder limits",
   },
   {
@@ -190,7 +190,7 @@ const tabs = [
       "Expense Export",
     ],
     cta: "Explore Finance",
-    image: expenseShot.url,
+    image: expenseShot,
     alt: "BizzAct expenses ledger with input tax credit breakdown",
   },
   {
@@ -209,7 +209,7 @@ const tabs = [
       "Data Backup & Restore",
     ],
     cta: "Explore Settings",
-    image: backupShot.url,
+    image: backupShot,
     alt: "BizzAct settings screen with backup, restore and license management",
   },
 ];
@@ -229,7 +229,7 @@ const showcase = [
     copy: "Manage your entire sales cycle from customers to payment.",
     bullets: ["Customer Directory", "Sales Register", "Invoice Register", "Payment Terms & Aging"],
     cta: "View Sales Features",
-    image: invoiceShot.url,
+    image: invoiceShot,
     alt: "BizzAct invoices and billing register",
     tint: "var(--primary)",
   },
@@ -239,7 +239,7 @@ const showcase = [
     copy: "Control inventory, manage vendors and streamline purchases.",
     bullets: ["Purchase Management", "Inventory Tracking", "Vendor Directory", "Stock Level Alerts"],
     cta: "View Procurement Features",
-    image: catalogShot.url,
+    image: catalogShot,
     alt: "BizzAct procurement catalog",
     tint: "var(--brand-blue)",
   },
@@ -249,7 +249,7 @@ const showcase = [
     copy: "Track expenses, view summaries and stay GST compliant.",
     bullets: ["Expenses Ledger", "Monthly Summary", "GST Summary", "GST Return Position"],
     cta: "View Finance Features",
-    image: expenseShot.url,
+    image: expenseShot,
     alt: "BizzAct expenses ledger",
     tint: "var(--brand-green)",
   },
@@ -288,7 +288,7 @@ function Logo() {
   return (
     <a href="#home" className="flex items-center gap-2.5">
       <span className="grid size-10 place-items-center overflow-hidden rounded-xl border border-border bg-card clay">
-        <img src={logoAsset.url} alt="BizzAct logo" className="size-full object-cover" />
+        <img src={logoUrl} alt="BizzAct logo" className="size-full object-cover" />
       </span>
       <span className="text-xl font-extrabold tracking-tight">
         <span style={{ color: "var(--brand-green)" }}>Bizz</span>
@@ -479,7 +479,7 @@ function Landing() {
           <div className="rounded-[26px] border border-border bg-card p-2.5 clay-lg">
             <div className="overflow-hidden rounded-[18px] border border-border">
               <img
-                src={dashboardShot.url}
+                src={dashboardShot}
                 alt="BizzAct executive financial dashboard showing revenue, GST liability and expense distribution"
                 className="block w-full"
               />
@@ -712,7 +712,7 @@ function Landing() {
             </div>
             <div className="mt-6 rounded-2xl border border-ink-foreground/15 bg-ink-foreground/5 p-2">
               <img
-                src={profileShot.url}
+                src={profileShot}
                 alt="BizzAct business profile and invoicing defaults configuration"
                 loading="lazy"
                 className="block w-full rounded-xl"
