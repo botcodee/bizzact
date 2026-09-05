@@ -333,11 +333,14 @@ function ContactForm() {
   }
 
   const field =
-    "w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm outline-none focus:border-primary";
+    "w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-primary";
 
   return (
-    <form onSubmit={onSubmit} className="rounded-2xl border border-border bg-card p-6 clay clay-lg">
-      <h3 className="text-base font-extrabold">Request a Demo</h3>
+    <form
+      onSubmit={onSubmit}
+      className="rounded-2xl border border-border bg-card p-6 text-foreground clay clay-lg"
+    >
+      <h3 className="text-base font-extrabold text-foreground">Request a Demo</h3>
       <p className="mt-1.5 text-xs text-muted-foreground">
         Share your details and our team will reach out shortly.
       </p>
